@@ -2,7 +2,9 @@
 
 A modern take on the classic Minesweeper game, featuring a sleek design, dark mode support, and enhanced gameplay features.
 
-![NeoSweeper Game]![image](https://github.com/user-attachments/assets/deb854ef-f404-4303-af5b-bfc3a33bc624)
+![image](https://github.com/user-attachments/assets/deb854ef-f404-4303-af5b-bfc3a33bc624)
+![image](https://github.com/user-attachments/assets/63032c23-50c4-4a29-9489-20f619991ec5)
+
 
 
 ## Features
