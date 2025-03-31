@@ -53,7 +53,7 @@ A modern take on the classic Minesweeper game, featuring a sleek design, dark mo
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/neosweeper.git
+git clone [https://github.com/yourusername/neosweeper.git](https://github.com/lazzerex/NeoSweeper.git)
 ```
 
 2. Open `index.html` in your browser or serve through a local web server
@@ -69,10 +69,6 @@ git clone https://github.com/yourusername/neosweeper.git
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
