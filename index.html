@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoSweeper</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💣</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="game-title">NeoSweeper</h1>
+        <div class="game-header">
+            <div class="mine-count">💣 <span id="mine-count">10</span></div>
+            <div class="controls">
+                <button id="theme-toggle" class="theme-btn">🌙</button>
+                <button id="new-game" class="new-game-btn">New Game</button>
+                <button id="cheat-btn" class="cheat-btn">👁️ Reveal Mines</button>
+            </div>
+            <div class="timer">⏱️ <span id="timer">0</span></div>
+        </div>
+        <div class="difficulty-selector">
+            <button class="difficulty-btn active" data-difficulty="beginner">Beginner</button>
+            <button class="difficulty-btn" data-difficulty="intermediate">Intermediate</button>
+            <button class="difficulty-btn" data-difficulty="expert">Expert</button>
+        </div>
+        <div id="game-board" class="game-board"></div>
+    </div>
+
+    <!-- Win Screen Overlay -->
+    <div id="win-screen" class="win-screen">
+        <div class="win-content">
+            <h2>🎉 YOU WON! 🎉</h2>
+            <p>Congratulations on clearing the minefield!</p>
+            <div class="win-stats">
+                <div class="stat">Time: <span id="win-time">0</span>s</div>
+                <div class="stat">Difficulty: <span id="win-difficulty">beginner</span></div>
+            </div>
+            <button class="play-again-btn">Play Again</button>
+        </div>
+    </div>
+
+    <div id="game-over-screen" class="game-over-screen">
+        <div class="game-over-content">
+            <h2> GAME OVER! </h2>
+            <p>Better luck next time!</p>
+            <div class="game-over-stats">
+                <div class="stat">Time Survived: <span id="game-over-time">0</span>s</div>
+                <div class="stat">Difficulty: <span id="game-over-difficulty">beginner</span></div>
+            </div>
+            <button class="try-again-btn">Try Again</button>
+        </div>
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html> 
