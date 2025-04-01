@@ -289,7 +289,7 @@ class Minesweeper {
         
         // Update game over screen stats
         document.getElementById('game-over-time').textContent = this.timer;
-        document.getElementById('game-over-difficulty').textContent = this.currentDifficulty;
+        document.getElementById('game-over-difficulty').textContent = this.currentDifficulty.charAt(0).toUpperCase() + this.currentDifficulty.slice(1);
         
         // Show game over screen with delay
         setTimeout(() => {
@@ -375,7 +375,7 @@ class Minesweeper {
         
         // Update win screen stats
         document.getElementById('win-time').textContent = this.timer;
-        document.getElementById('win-difficulty').textContent = this.currentDifficulty;
+        document.getElementById('win-difficulty').textContent = this.currentDifficulty.charAt(0).toUpperCase() + this.currentDifficulty.slice(1);
         
         // Show win screen with delay
         setTimeout(() => {
