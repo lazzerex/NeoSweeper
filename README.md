@@ -11,18 +11,20 @@ Try it here: https://neo-sweeper.vercel.app/
 ## Features
 
 - 🎮 Three difficulty levels: Beginner, Intermediate, and Expert
-- 🌓 Dark/Light theme toggle
+- 🌓 Dark/Light theme toggle with smooth transitions
 - ⏱️ Real-time game timer
 - 🚩 Mine counter
-- 🔍 Debug mode for gameplay testing
 - 💣 Modern UI with smooth animations
 - 📱 Responsive design for all devices
+- 🏠 Menu system with game instructions
+- 🎯 Post-game board review functionality
+- 💥 Game over shake animation
+- 🎉 Victory celebration effects
 
 ## How to Play
 
 1. **Left Click**: Reveal a cell
 2. **Right Click**: Place/Remove a flag
-3. **Double Click**: Quick reveal surrounding cells (when satisfied with flags)
 
 ## Game Rules
 
@@ -37,10 +39,31 @@ Try it here: https://neo-sweeper.vercel.app/
 - **Intermediate**: 16x16 grid with 40 mines
 - **Expert**: 30x16 grid with 99 mines
 
-## Debug Features
+## Game Features
 
-- 👁️ Reveal Mines button: Toggles mine visibility for testing
-- Mine positions are preserved during debugging
+### Menu System
+- Clean, intuitive main menu
+- Easy access to game instructions
+- Smooth theme toggle in menu
+- Quick game start option
+
+### Gameplay Enhancements
+- Immediate feedback on mine hits with shake animation
+- Post-game board review capability
+- Ability to view the final board state after winning or losing
+- Smooth transitions between game states
+- Disabled interactions during animations
+
+### Visual Feedback
+- Smooth theme transitions
+- Responsive button hover effects
+- Clear visual indicators for game state
+- Celebration effects on victory
+- Shake animation on game over
+
+## Gameplay Features
+
+- 👁️ Reveal Mines button: Toggles mine visibility
 - Game remains playable with mines revealed
 
 ## Development
@@ -66,6 +89,7 @@ git clone https://github.com/lazzerex/NeoSweeper.git
 - Vanilla JavaScript
 - Modern CSS Grid Layout
 - Responsive Design
+- Canvas for particle effects
 
 ## Contributing
 

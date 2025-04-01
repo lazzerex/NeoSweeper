@@ -17,6 +17,7 @@ class Minesweeper {
         this.isRevealing = false;
         this.cheatsEnabled = false;
         this.isDarkTheme = localStorage.getItem('minesweeper-theme') === 'dark';
+        this.isAnimating = false;
         
         // Initialize theme
         this.updateTheme(this.isDarkTheme);
@@ -30,9 +31,68 @@ class Minesweeper {
             running: false
         };
         
-        this.initializeGame();
+        // Setup menu screen and event listeners
+        this.setupMenuScreen();
         this.setupEventListeners();
         this.setupConfetti();
+    }
+
+    setupMenuScreen() {
+        const startGameBtn = document.getElementById('start-game');
+        const menuThemeToggle = document.getElementById('menu-theme-toggle');
+        const gameContainer = document.querySelector('.game-container');
+        
+        // Create theme transition overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'theme-transition-overlay';
+        document.body.appendChild(overlay);
+        
+        // Initialize the game board but keep it hidden
+        this.initializeGame();
+        
+        startGameBtn.addEventListener('click', () => {
+            const menuScreen = document.getElementById('menu-screen');
+            
+            // Hide menu and show game
+            menuScreen.style.display = 'none';
+            gameContainer.style.display = 'block';
+            
+            // Reset and start a new game
+            this.initializeGame();
+        });
+        
+        // Set initial theme toggle text
+        menuThemeToggle.textContent = this.isDarkTheme ? '☀️ Toggle Theme' : '🌙 Toggle Theme';
+        
+        menuThemeToggle.addEventListener('click', () => {
+            // Show overlay
+            overlay.classList.add('active');
+            
+            // Change theme with a slight delay
+            setTimeout(() => {
+                this.toggleTheme();
+                menuThemeToggle.textContent = this.isDarkTheme ? '☀️ Toggle Theme' : '🌙 Toggle Theme';
+                
+                // Hide overlay
+                setTimeout(() => {
+                    overlay.classList.remove('active');
+                }, 300);
+            }, 150);
+        });
+    }
+
+    showLoadingScreen() {
+        const loadingScreen = document.getElementById('loading-screen');
+        loadingScreen.style.display = 'flex';
+        loadingScreen.classList.remove('hidden');
+    }
+
+    hideLoadingScreen() {
+        const loadingScreen = document.getElementById('loading-screen');
+        loadingScreen.classList.add('hidden');
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+        }, 500);
     }
 
     initializeGame() {
@@ -45,6 +105,14 @@ class Minesweeper {
         this.firstClick = true;
         this.revealQueue = [];
         this.isRevealing = false;
+        this.cheatsEnabled = false;
+        
+        // Enable and reset difficulty buttons
+        document.querySelectorAll('.difficulty-btn').forEach(btn => {
+            btn.disabled = false;
+            btn.style.opacity = '';
+            btn.style.cursor = '';
+        });
         
         // Update CSS variable for grid size
         document.documentElement.style.setProperty('--grid-size', cols);
@@ -52,10 +120,12 @@ class Minesweeper {
         // Reset timer
         if (this.timerInterval) clearInterval(this.timerInterval);
         this.timer = 0;
-        document.getElementById('timer').textContent = '0';
+        const timerElement = document.getElementById('timer');
+        if (timerElement) timerElement.textContent = '0';
         
-        // Update mine count
-        document.getElementById('mine-count').textContent = this.remainingMines;
+        // Update mine count and score
+        const mineCountElement = document.getElementById('mine-count');
+        if (mineCountElement) mineCountElement.textContent = this.remainingMines;
         
         // Create empty board
         this.board = Array(rows).fill().map(() => Array(cols).fill().map(() => ({
@@ -152,6 +222,14 @@ class Minesweeper {
             cell.classList.add('mine');
             cell.textContent = '💣';
             this.gameOver = true;
+            
+            // Add shake animation immediately when mine is clicked
+            const gameContainer = document.querySelector('.game-container');
+            gameContainer.classList.add('shake-animation');
+            setTimeout(() => {
+                gameContainer.classList.remove('shake-animation');
+            }, 500);
+            
             await this.revealAllMines();
             clearInterval(this.timerInterval);
             this.showGameOver();
@@ -246,6 +324,7 @@ class Minesweeper {
     }
 
     async revealAllMines() {
+        this.isAnimating = true;
         const cells = [];
         for (let row = 0; row < this.rows; row++) {
             for (let col = 0; col < this.cols; col++) {
@@ -262,6 +341,7 @@ class Minesweeper {
             cell.textContent = '💣';
             await new Promise(resolve => setTimeout(resolve, 50));
         }
+        this.isAnimating = false;
     }
 
     checkWin() {
@@ -284,19 +364,20 @@ class Minesweeper {
     }
 
     showGameOver() {
-        const gameContainer = document.querySelector('.game-container');
-        gameContainer.style.animation = 'shake 0.5s ease-in-out';
-        
         // Update game over screen stats
         document.getElementById('game-over-time').textContent = this.timer;
         document.getElementById('game-over-difficulty').textContent = this.currentDifficulty.charAt(0).toUpperCase() + this.currentDifficulty.slice(1);
         
-        // Show game over screen with delay
-        setTimeout(() => {
-            gameContainer.style.animation = '';
-            const gameOverScreen = document.getElementById('game-over-screen');
-            gameOverScreen.classList.add('show');
-        }, 500);
+        // Disable difficulty buttons
+        document.querySelectorAll('.difficulty-btn').forEach(btn => {
+            btn.disabled = true;
+            btn.style.opacity = '0.5';
+            btn.style.cursor = 'not-allowed';
+        });
+        
+        // Show game over screen
+        const gameOverScreen = document.getElementById('game-over-screen');
+        gameOverScreen.classList.add('show');
     }
 
     setupConfetti() {
@@ -377,6 +458,13 @@ class Minesweeper {
         document.getElementById('win-time').textContent = this.timer;
         document.getElementById('win-difficulty').textContent = this.currentDifficulty.charAt(0).toUpperCase() + this.currentDifficulty.slice(1);
         
+        // Disable difficulty buttons
+        document.querySelectorAll('.difficulty-btn').forEach(btn => {
+            btn.disabled = true;
+            btn.style.opacity = '0.5';
+            btn.style.cursor = 'not-allowed';
+        });
+        
         // Show win screen with delay
         setTimeout(() => {
             gameContainer.style.animation = '';
@@ -428,6 +516,7 @@ class Minesweeper {
     setupEventListeners() {
         // New game button
         document.getElementById('new-game').addEventListener('click', () => {
+            if (this.isAnimating) return;
             this.initializeGame();
         });
 
@@ -439,6 +528,7 @@ class Minesweeper {
         // Difficulty buttons
         document.querySelectorAll('.difficulty-btn').forEach(btn => {
             btn.addEventListener('click', () => {
+                if (this.isAnimating) return;
                 document.querySelectorAll('.difficulty-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 this.currentDifficulty = btn.dataset.difficulty;
@@ -448,7 +538,7 @@ class Minesweeper {
 
         // Game board clicks
         document.getElementById('game-board').addEventListener('click', (e) => {
-            if (this.gameOver) return;
+            if (this.gameOver || this.isAnimating) return;
             
             const cell = e.target.closest('.cell');
             if (!cell) return;
@@ -479,24 +569,53 @@ class Minesweeper {
             this.toggleFlag(row, col);
         });
 
-        // Play Again button (Win Screen)
-        document.querySelector('.play-again-btn').addEventListener('click', () => {
-            const winScreen = document.getElementById('win-screen');
-            winScreen.classList.remove('show');
-            this.stopConfetti();
-            this.initializeGame();
+        // Win and Game Over screen click handlers
+        const winScreen = document.getElementById('win-screen');
+        const gameOverScreen = document.getElementById('game-over-screen');
+
+        winScreen.addEventListener('click', (e) => {
+            if (!e.target.closest('.win-content')) {
+                winScreen.classList.remove('show');
+            }
         });
 
-        // Try Again button (Game Over Screen)
-        document.querySelector('.try-again-btn').addEventListener('click', () => {
-            const gameOverScreen = document.getElementById('game-over-screen');
-            gameOverScreen.classList.remove('show');
-            this.initializeGame();
+        gameOverScreen.addEventListener('click', (e) => {
+            if (!e.target.closest('.game-over-content')) {
+                gameOverScreen.classList.remove('show');
+            }
+        });
+
+        // Play Again button (Win Screen and Game Over Screen)
+        document.querySelectorAll('.play-again-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('win-screen').classList.remove('show');
+                document.getElementById('game-over-screen').classList.remove('show');
+                this.stopConfetti();
+                this.initializeGame();
+            });
         });
 
         // Theme toggle button
         document.getElementById('theme-toggle').addEventListener('click', () => {
             this.toggleTheme();
+        });
+
+        // Menu button
+        document.getElementById('menu-btn').addEventListener('click', () => {
+            // Stop the game
+            if (this.timerInterval) {
+                clearInterval(this.timerInterval);
+            }
+            
+            // Show menu screen
+            const menuScreen = document.getElementById('menu-screen');
+            const gameContainer = document.querySelector('.game-container');
+            menuScreen.style.display = 'flex';
+            gameContainer.style.display = 'none';
+            
+            // Reset game state
+            this.gameOver = true;
+            this.stopConfetti();
         });
     }
 }

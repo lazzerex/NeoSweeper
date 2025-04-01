@@ -8,16 +8,35 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="game-container">
+    <!-- Menu Screen -->
+    <div id="menu-screen" class="menu-screen">
+        <div class="menu-content">
+            <div class="menu-title">NeoSweeper</div>
+            <div class="menu-buttons">
+                <button id="start-game" class="menu-btn">Start Game</button>
+                <button id="menu-theme-toggle" class="menu-btn">🌙 Toggle Theme</button>
+            </div>
+            <div class="menu-instructions">
+                <h3>How to Play</h3>
+                <ul>
+                    <li>Left Click: Reveal a cell</li>
+                    <li>Right Click: Place/Remove a flag</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-container" style="display: none;">
         <h1 class="game-title">NeoSweeper</h1>
         <div class="game-header">
             <div class="mine-count">💣 <span id="mine-count">10</span></div>
+            <div class="timer">⏱️ <span id="timer">0</span>s</div>
             <div class="controls">
                 <button id="theme-toggle" class="theme-btn">🌙</button>
+                <button id="menu-btn" class="menu-btn">🏠 Menu</button>
                 <button id="new-game" class="new-game-btn">New Game</button>
                 <button id="cheat-btn" class="cheat-btn">👁️ Reveal Mines</button>
             </div>
-            <div class="timer">⏱️ <span id="timer">0</span></div>
         </div>
         <div class="difficulty-selector">
             <button class="difficulty-btn active" data-difficulty="beginner">Beginner</button>
@@ -30,7 +49,7 @@
     <!-- Win Screen Overlay -->
     <div id="win-screen" class="win-screen">
         <div class="win-content">
-            <h2>🎉 YOU WON! 🎉</h2>
+            <h2><span>🎉</span> YOU WON! <span>🎉</span></h2>
             <p>Congratulations on clearing the minefield!</p>
             <div class="win-stats">
                 <div class="stat">Time: <span id="win-time">0</span>s</div>
@@ -42,13 +61,13 @@
 
     <div id="game-over-screen" class="game-over-screen">
         <div class="game-over-content">
-            <h2> GAME OVER! </h2>
+            <h2><span>💣</span> GAME OVER! <span>💣</span></h2>
             <p>Better luck next time!</p>
             <div class="game-over-stats">
                 <div class="stat">Time Survived: <span id="game-over-time">0</span>s</div>
                 <div class="stat">Difficulty: <span id="game-over-difficulty">beginner</span></div>
             </div>
-            <button class="try-again-btn">Try Again</button>
+            <button class="play-again-btn">Play Again</button>
         </div>
     </div>
 
