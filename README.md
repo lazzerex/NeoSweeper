@@ -2,7 +2,11 @@
 
 A modern take on the classic Minesweeper game, featuring a sleek design, dark mode support, and enhanced gameplay features.
 
-![NeoSweeper Game](screenshot.png)
+Try it here: https://neo-sweeper.vercel.app/
+
+![image](https://github.com/user-attachments/assets/deb854ef-f404-4303-af5b-bfc3a33bc624)
+![image](https://github.com/user-attachments/assets/63032c23-50c4-4a29-9489-20f619991ec5)
+
 
 ## Features
 
@@ -50,7 +54,7 @@ A modern take on the classic Minesweeper game, featuring a sleek design, dark mo
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/neosweeper.git
+git clone https://github.com/lazzerex/NeoSweeper.git
 ```
 
 2. Open `index.html` in your browser or serve through a local web server
@@ -66,10 +70,6 @@ git clone https://github.com/yourusername/neosweeper.git
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
