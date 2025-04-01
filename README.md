@@ -4,8 +4,10 @@ A modern take on the classic Minesweeper game, featuring a sleek design, dark mo
 
 Try it here: https://neo-sweeper.vercel.app/
 
-![image](https://github.com/user-attachments/assets/deb854ef-f404-4303-af5b-bfc3a33bc624)
-![image](https://github.com/user-attachments/assets/63032c23-50c4-4a29-9489-20f619991ec5)
+
+![image](https://github.com/user-attachments/assets/1201a59d-a5c1-4535-adf3-a0db3a0b9bc1)
+![image](https://github.com/user-attachments/assets/2ddae417-a0c9-429c-9505-f66b3d1969c7)
+
 
 
 ## Features
