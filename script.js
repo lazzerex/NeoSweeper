@@ -223,6 +223,9 @@ class Minesweeper {
             cell.textContent = '💣';
             this.gameOver = true;
             
+            // Stop the timer immediately when a mine is clicked
+            clearInterval(this.timerInterval);
+            
             // Add shake animation immediately when mine is clicked
             const gameContainer = document.querySelector('.game-container');
             gameContainer.classList.add('shake-animation');
@@ -231,7 +234,6 @@ class Minesweeper {
             }, 500);
             
             await this.revealAllMines();
-            clearInterval(this.timerInterval);
             this.showGameOver();
             return;
         }
