@@ -96,6 +96,7 @@ class Minesweeper {
     }
 
     initializeGame() {
+        
         const { rows, cols, mines } = this.difficulties[this.currentDifficulty];
         this.rows = rows;
         this.cols = cols;
@@ -520,6 +521,7 @@ class Minesweeper {
         document.getElementById('new-game').addEventListener('click', () => {
             if (this.isAnimating) return;
             this.initializeGame();
+            this.stopConfetti();
         });
 
         // Cheat button
